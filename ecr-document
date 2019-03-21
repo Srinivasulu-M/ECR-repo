@@ -1,0 +1,41 @@
+===========ECR( elastic container registry )=====
+
+we can store the images in ECR
+
+1) launch the ec2-machine and install the docker and start the docker
+
+2)first we can create the iam role 
+
+iamrole---select ec2 ---administrator access
+
+this iam role attached to ec2-machine 
+
+3) go to ecr and create  the repository
+
+4) clone to code to local repository   git clone https://github.com/devalrajumahesh/apache-dockerfile.git
+
+5)  build the image by using docker 
+
+    docker build -t apa:1 .
+
+check whether image is build or not  # docker images
+
+6) install aws 
+
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+
+unzip awscli-bundle.zip
+
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+# echo $PATH | grep ~/bin     // See if $PATH contains ~/bin (output will be empty if it doesn't)
+# export PATH=~/bin:$PATH     // Add ~/bin to $PATH if necessary
+
+7) login into ecr 
+
+aws ecr get-login --no-include-email --region ap-south-1  ---login into ecr repo
+
+docker tag apa:1 623005405181.dkr.ecr.ap-south-1.amazonaws.com/apache:latest ---tag the name 
+
+docker push 623005405181.dkr.ecr.ap-south-1.amazonaws.com/apache:latest  ---image push to ecr repo
+
